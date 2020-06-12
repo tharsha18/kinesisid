@@ -4,9 +4,9 @@ In this section, we create an Amazon Kinesis Data Stream as a pre-requisite to u
 
 The source code of the java replay program is available [here](https://github.com/aws-samples/amazon-kinesis-replay). We will then use this producer code to stream NYC taxi trips data.
 
-![screenshot](images/arch1.png)
+![screenshot](images2/arch3.png)
 
-## Pre-Requisite: Create the Kinesis Data Stream
+## Section 1: Pre-Requisite to create the Kinesis Data Stream and ingest NYC Trip data
 ###  1.	Using the AWS Console, navigate to the Amazon Kinesis services and press Get Started when prompted (you may not need to complete this, if you have already used Amazon Kinesis). Select Create data stream to navigate to the Amazon Kinesis Data Stream service. 
 
 ![screenshot](images/Picture2.png)
@@ -110,51 +110,51 @@ If we review what you have done, you have created an EC2 environment that can ru
 
 ## You have completed the pre-requisites for this lab!! Lets move on to Kinesis Data Analytics
 
-# Kinesis Immersion Day Lab3 - Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL
+# Section 2 - Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL
 
 In the previous section, you’ve created a Kinesis data stream and started to ingest events into the data stream. In this section, you will learn how to connect Kinesis Data Analytics to your existing stream and clean, aggregate, and enrich the incoming events.
 
-![screenshot](images/arch3.png)
+![screenshot](images2/arch3.png)
 
 ### 1.	Navigate to the Amazon Kinesis services and select Create analytics application to navigate to the Amazon Kinesis Data Stream service.
 
-![screenshot](images/Picture2.png)
+![screenshot](images2/Picture2.png)
 
 
 ### 2.	Enter a name for the application as Application name, eg, initials-taxi-trips. Select SQL as the Runtime and hit the Create application button.
 
-![screenshot](images/Picture3.png)
+![screenshot](images2/Picture3.png)
 
 ### 3.	Select Connect streaming data to connect the existing Kinesis data stream with your Kinesis Analytics application.
 
-![screenshot](images/Picture4.png)
+![screenshot](images2/Picture4.png)
 
 ### 4.  Select Kinesis stream as the Source and choose the Kinesis data stream you have created earlier from the Kinesis stream dropdown menu.
 
-![screenshot](images/Picture6.png)
+![screenshot](images2/Picture6.png)
 
 ### 5.	Ensure that the replay Java application is still ingesting events into the Kinesis data stream and select Discover schema at the bottom of the same page.
 
-![screenshot](images/Picture7.png)
+![screenshot](images2/Picture7.png)
 
 ### 6.	After the schema discovery completed successfully, select Edit schema to fine tune the inferred schema.
 
-![screenshot](images/Picture8.png)
+![screenshot](images2/Picture8.png)
 
 ### 7.	In the dropdown menu for the type of the attribute trip_id, change the type from INT to BIGINT. Moreover, change the Length of the attribute type from 4 to 9. Complete this step by pressing Save schema and update stream samples. It may take a minute until the operation completes.
 
 Note: If the type of trip_id is already BIGINT, then you can leave it as it is. If the length of the type attribute is already >=9, then you can leave the length as it is.
 
 
-![screenshot](images/Picture9.png)
+![screenshot](images2/Picture9.png)
 
 ### 8.	Verify, that the incoming events are successfully mapped to the corrected schema and click on Exit (done). 
 
-![screenshot](images/Picture10.png)
+![screenshot](images2/Picture10.png)
 
 ### 9.	Back in the configuration dialog of your Kinesis Analytics application, select Go to SQL editor.
 
-![screenshot](images/Picture11.png)
+![screenshot](images2/Picture11.png)
 
 ### 10.	Replace the existing code in the editor window with the following SQL code.
 
@@ -209,11 +209,11 @@ CREATE OR REPLACE PUMP statistics_pump AS
 
 ### 11.	Select Save and run to start the execution of the SQL code.
 
-![screenshot](images/Picture12.png)
+![screenshot](images2/Picture12.png)
 
 ### 12.	At the bottom of the page, select TRIP_STATISTICS to observe the output of the queries in real time.
 
-![screenshot](images/Picture13.png)
+![screenshot](images2/Picture13.png)
 
 To review what we've done so far, we have defined two Streams and two Pumps.  A Stream is like an in-memory table.  A Pump is like a continuous query that is used to populate our stream.
 
@@ -262,11 +262,11 @@ CREATE OR REPLACE PUMP trip_statistics_anomaly_60min_pump AS
 
 ### 14.	Click Save and run SQL to execute the updated program.
 
-![screenshot](images/Picture14.png)
+![screenshot](images2/Picture14.png)
 
 ### 15.	Select TRIP_STATISTICS_ANOMALY as In-application streams.
 
-![screenshot](images/Picture15.png)
+![screenshot](images2/Picture15.png)
 
 The (random cut forest algorithm)[https://docs.aws.amazon.com/kinesisanalytics/latest/sqlref/sqlrf-random-cut-forest-with-explanation.html] takes a couple of minutes to initialize (during which the ANOMALY_SCORE will be zero). Once the initialization phase has completed, you should see a meaningful ANOMALY_SCORE value and ANOMALY_SCORE_EXPLANATION. 
 
