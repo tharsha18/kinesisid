@@ -260,6 +260,9 @@ CREATE OR REPLACE PUMP trip_statistics_anomaly_60min_pump AS
 
 ```
 
+Refer to the following documentation on available sql functions and operators. Refer to left hand pane for additonal documentation.
+https://docs.aws.amazon.com/kinesisanalytics/latest/sqlref/sql-reference-functions.html
+
 ### 14.	Click Save and run SQL to execute the updated program.
 
 ![screenshot](images2/Picture14.png)
