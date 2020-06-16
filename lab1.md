@@ -1,18 +1,22 @@
 # Lab1 : Stream ingest AWS IOT Core data to Amazon Kinesis Streams
 
 1.	Sign in to the AWS IoT console using the instructions your lab instructor has provided
-2.	Create a thing. A thing represents a device that will send the data to IOT for processing and storage
-
-`aws iot create-thing --thing-name myIoTTopic`
+2.	Search for AWS IOT Core under services menu. 
+   On the left hand side, expand "Manage" --> click "Things" --> create -->   Create a single thing --> name anything like "myIOTTopic". (A thing represents a device that will send the data to IOT for processing and storage)
+    
+    Alternatively, you an run the following AWS CLI command and go tp step 3
+   `aws iot create-thing --thing-name myIoTTopic`
 
 3.	Register a device
-•	Create and activate device certificate
- 
- ![screenshot](imglab1/Picture1.png)
-
- 
-Download all the files and click activate
+  If you used AWS CLI command to create a "thing", then find the certificates in the screenshot below. Otherwise, skip the following screenshot and move on to selecting the certificate. 
+  ![screenshot](imglab1/Picture1.png)
  
+  Click create certificate as seen in screenshot below.
+  ![screenshot](imglab1/Picture2.png)
+ 
+  Download all the files and click activate as seen in screenshot below
+  
+  ![screenshot](imglab1/Picture3.png)
 
 •	Create IoT Core policy
 o	Navigate to Policies and click create. Enter the name and add 2 actions as follows and click create.
