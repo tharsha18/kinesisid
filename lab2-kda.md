@@ -116,7 +116,7 @@ In the previous section, you’ve created a Kinesis data stream and started to i
 
 ![screenshot](images2/arch3.png)
 
-### 1.	Navigate to the Amazon Kinesis services and select Create analytics application to navigate to the Amazon Kinesis Data Stream service.
+### 1.	Navigate to the Amazon Kinesis services and select "Data Analytics" or "Analytics applications" from the left hand navigation pane and click on "Create Application" button to navigate to the Amazon Kinesis Data Stream service.
 
 ![screenshot](images2/Picture2.png)
 
