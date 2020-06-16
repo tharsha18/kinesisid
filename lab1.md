@@ -39,8 +39,6 @@ Navigate back to the certificates page, select the certificate you created previ
  
 ![screenshot](imglab1/Picture6.png)
 
-Download rootCA certificate: https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html?icmpid=docs_iot_console#server-authentication-certs
-
 4.	Configure device
 •	Copy all the certificate files you downloaded previously to a folder from where you will run the simulator that generates random data and sends it to the topic
 •	Copy the simulator script to the same folder.
