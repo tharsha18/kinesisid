@@ -4,10 +4,10 @@
 2.	Search for AWS IOT Core under services menu. 
    On the left hand side, expand "Manage" --> click "Things" --> create -->   Create a single thing --> name anything like "myIOTTopic". (A thing represents a device that will send the data to IOT for processing and storage)
     
-    Alternatively, you an run the following AWS CLI command and go tp step 3
-   `aws iot create-thing --thing-name myIoTTopic`
+    Alternatively, you an run the following AWS CLI command and go tp step 3.
+    `aws iot create-thing --thing-name myIoTTopic`
 
-3.	Register a device
+3.	
   If you used AWS CLI command to create a "thing", then find the certificates in the screenshot below. Otherwise, skip the following screenshot and move on to selecting the certificate. 
   ![screenshot](imglab1/Picture1.png)
  
@@ -18,9 +18,11 @@
   
   ![screenshot](imglab1/Picture3.png)
 
+   Don't miss the 4th cert CA root cert at the bottom of the page and download the cert named "Amazon Root CA 1"
+
 •	Create IoT Core policy
-o	Navigate to Policies and click create. Enter the name and add 2 actions as follows and click create.
- 
+o	Navigate to Secure --> Policies on the left hand pane and click create apolicy. Enter the name and add 2 actions as follows and click create.
+ ![screenshot](imglab1/Picture4.png)
 
  
 •	Attach policy to certificate
