@@ -9,9 +9,11 @@
 
 3.	
   If you used AWS CLI command to create a "thing", then find the certificates in the screenshot below. Otherwise, skip the following screenshot and move on to selecting the certificate. 
+  
   ![screenshot](imglab1/Picture1.png)
  
   Click create certificate as seen in screenshot below.
+  
   ![screenshot](imglab1/Picture2.png)
  
   Download all the files and click activate as seen in screenshot below
@@ -21,20 +23,21 @@
    Don't miss the 4th cert CA root cert at the bottom of the page and download the cert named "Amazon Root CA 1"
 
 •	Create IoT Core policy
-o	Navigate to Secure --> Policies on the left hand pane and click create apolicy. Enter the name and add 2 actions as follows and click create.
+o	Navigate to Secure --> Policies on the left hand pane and click create apolicy. Enter any name and add 2 actions as follows and click create. To create a second section, click Add Statement button
+
  ![screenshot](imglab1/Picture4.png)
 
  
 •	Attach policy to certificate
-o	Navigate to  the certificates page, click on the certificate you created previously. In the top right corner, click on actions and select attach policy. Select the policy you just created and click attach.
+o	Navigate to Secure--> certificates pane on IOT core landing page, click on the certificate you created previously. In the top right corner, click on the menu represnted by ... and select attach policy. Select the policy you just created and click attach.
  
-
+![screenshot](imglab1/Picture5.png)
  
 
 •	Attach certificate to thing
-Navigate back to the certificates page, select the certificate you created previously. From the Actions menu, select Attach thing. Select the thing you created previously.
+Navigate back to the certificates page, select the certificate you created previously. From the same menu represented by ... , select Attach thing. Select the thing you created previously.
  
-
+![screenshot](imglab1/Picture6.png)
 
 Download rootCA certificate: https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html?icmpid=docs_iot_console#server-authentication-certs
 
