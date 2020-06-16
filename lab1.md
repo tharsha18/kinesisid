@@ -8,7 +8,7 @@
 3.	Register a device
 •	Create and activate device certificate
  
- 
+ ![screenshot](imglab1/Picture1.png)
 
  
 Download all the files and click activate
