@@ -3,7 +3,7 @@
 1.	Sign in to the AWS IoT console using the instructions your lab instructor has provided
 2.	Create a thing. A thing represents a device that will send the data to IOT for processing and storage
 
-*aws iot create-thing --thing-name myIoTTopic
+`aws iot create-thing --thing-name myIoTTopic`
 
 3.	Register a device
 •	Create and activate device certificate
