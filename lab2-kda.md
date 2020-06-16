@@ -101,7 +101,7 @@ Note: The almost correct command is again available from the Outputs section of 
 
 * Navigate to the Kinesis console and click on "initials-taxi-trips" in the Kinesis Data Streams section.
 
-* Click on the Monitoring tab and scroll down to view the "Incoming Data (Bytes) - Sum" metric.  You may need to wait 2 or 3 minutes as well as use the refresh button for the monitoring charts to see metrics. 
+* Click on the Monitoring tab and scroll down to view the "Incoming Data (Bytes) - Sum" metric.  You may need to wait ~5 minutes for the metrics to refresh on the monitoring charts. You should see a dot first and then after some time a line graph.
 
 ![screenshot](images/Picture12metrics.png)
 
