@@ -108,7 +108,8 @@ Navigate back to the certificates page, select the certificate you created previ
 ![screenshot](imglab1/Picture6.png)
 
 4.	Configure device
-•	Copy all the certificate files you downloaded previously to a folder from where you will run the simulator that generates random data and sends it to the topic
+•	Copy all the certificate files you downloaded in the earlier part of this section and transfer them to the linux EC2 instance you created in section 1 using a tool of your choice.
+from where you will run the simulator that generates random data and sends it to the topic
 •	Copy the simulator script to the same folder.
 •	Make sure you can access the IOT endpoint from here
 
