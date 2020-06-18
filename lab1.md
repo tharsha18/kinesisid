@@ -70,13 +70,12 @@ Note for Windows users: Instead of the above command, you will need to follow th
 ## Section 2: Ingest IOT Core data to Kinesis Streams
 
 1.	From your AWS console, search for AWS IOT Core under services menu. 
-   On the left hand side, expand "Manage" --> click "Things" --> create -->   Create a single thing --> name anything like "myIOTTopic". (A thing represents a device that will send the data to IOT for processing and storage)
+   On the left hand side, expand "Manage" --> click "Things" --> create -->   Create a single thing --> name exactly "myIoTTopic" for the purposes of this lab. (A thing represents a device that will send the data to IOT for processing and storage)
     
-    Alternatively, you an run the following AWS CLI command and go tp step 3.
+    Alternatively, you an run the following AWS CLI command and go to step 2.
     `aws iot create-thing --thing-name myIoTTopic`
 
-3.	
-  If you used AWS CLI command to create a "thing", then find the certificates in the screenshot below. Otherwise, skip the following screenshot and move on to selecting the certificate. 
+2.	If you used AWS CLI command to create a "thing", then find the certificates in the screenshot below. Otherwise, skip the following screenshot and move on to the next to select the certificate. 
   
   ![screenshot](imglab1/Picture1.png)
  
@@ -88,10 +87,10 @@ Note for Windows users: Instead of the above command, you will need to follow th
   
   ![screenshot](imglab1/Picture3.png)
 
-   Don't miss the 4th cert CA root cert at the bottom of the page and download the cert named "Amazon Root CA 1"
+   Don't miss the 4th cert CA root cert at the bottom of the page and download the certs named "Verisign Endpoints (legacy) as well as "Amazon Root CA 1" 
 
 •	Create IoT Core policy
-o	Navigate to Secure --> Policies on the left hand pane and click create apolicy. Enter any name and add 2 actions as follows and click create. To create a second section, click Add Statement button
+o	Navigate to Secure --> Policies on the left hand pane and click create a policy. Enter any name and add 2 actions as follows and click create. To create a second section, click Add Statement button
 
  ![screenshot](imglab1/Picture4.png)
 
