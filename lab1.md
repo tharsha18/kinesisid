@@ -2,7 +2,7 @@
 
 ## Section 1: Create an EC2 linux Instance using the cloudformation template
 
-In this section, you will define your personal SSH Key Pair private key so you can login to the EC2 instance we will use in this lab.
+In your AWS console,navigate to EC2-->NETWORK & SECURITY under left pane --> Key Pairs and create a new SSH Key Pair private key named "lab1key" so you can login to the EC2 instance we will use in this lab. Save the key on your desktop for later use. DO NOT USE the default key named "ee-default-keypair".
 
 ### 1.	Navigate to the EC2 service and choose Key Pairs in the navigation bar on the left. 
 
