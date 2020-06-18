@@ -1,4 +1,4 @@
-# Immersion Day Lab 2 - Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL.
+# Immersion Day Lab 1 - Ingest, Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL.
 
 In this section, we create an Amazon Kinesis Data Stream as a pre-requisite to using Kinesis Data Analytics steam and populate the stream running a producer client program on an EC2 instance that streams a data set of taxi trips made in NYC.
 
@@ -6,7 +6,7 @@ The source code of the java replay program is available [here](https://github.co
 
 ![screenshot](images2/arch3.png)
 
-## Section 1: Pre-Requisite to create the Kinesis Data Stream and ingest NYC Trip data
+## Section 1: Create the Kinesis Data Stream and ingest NYC Trip data
 ###  1.	Using the AWS Console, navigate to the Amazon Kinesis services and press Get Started when prompted (you may not need to complete this, if you have already used Amazon Kinesis). Select Create data stream to navigate to the Amazon Kinesis Data Stream service. 
 
 ![screenshot](images/Picture2.png)
