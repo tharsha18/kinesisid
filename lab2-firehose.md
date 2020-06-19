@@ -1,6 +1,6 @@
 # Immersion Day Lab 2 - Deliver stream data usinf Kinesis Data Firehose
 
-## Part 1 - Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
+## Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
 
 Lets first create an S3 bucket which you want Firehose to send data to. Name the bucket using your "initials-accoutnumber". Your AWS acct number can be found at the top right section of the browser window.
 
@@ -24,11 +24,16 @@ Click Next (Leave rest default). Scroll down to Permission and click the button 
 
 It should open a new window for IAM. Click allow and then click next
 
+Review your changes and click "Create Delivery Stream". Now, your firehose will start writing to S3 bucket with the default prefix of year/month/date/hour/file format as seen in screenshot below
+
+![screen](ima/Picture6.png)
+
+Now that your data is in S3, you can create an athena table on top of it and start querying!. Below is optional exercise.
 
 
 ### Create the external table that Kinesis Data Firehose will use as a schema for data format conversion
 
-* Go to the Athena console, in the left pane, under "Database", click on the dropdown and select the database that you created earlier through the Glue console. Paste the following sql statement in the query window and click on "Run query". Remember to replace the S3 bucket name with the name of the bucket you created earlier through the S3 console.
+* Go to the Athena console, in the left pane, under "Database", click on the dropdown and select the default database. Remember to replace the S3 bucket name with the name of the bucket you created earlier through the S3 console.
 
 ```
 /* BE SURE TO EDIT THE BUCKET PART OF THE LOCATION (LAST LINE) WITH THE NAME OF YOUR S3 BUCKET */
@@ -56,304 +61,10 @@ CREATE EXTERNAL TABLE `nyctaxitrips`(
  OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
  LOCATION
-  's3://nyctaxitrips-s3bucket-initials/nyctaxitrips/'
+  's3://nyctaxitrips-initials/'
 
 ```
 
-![screen](images/Picture5.png)
-
-### Create Kinesis Data Firehose Delivery Stream:
-
-* Navigate to the Amazon Kinesis console.  Select Create delivery stream to navigate to the Amazon Kinesis Data Firehose service
-
-![screen](images/Picture6.png)
-
-* Enter a unique name for the Delivery stream name, eg, nyc-taxi-trips. For “Source”, choose “Direct PUT or other sources” as we will be using a lambda function to feed events to the Kinesis Data Firehose delivery stream. Click Next.
-
-![screen](images/Picture7.png)
-
-* Choose “Record Transformation” “as “Disabled” and “Record format conversion” as “Enabled” and choose “Output format” as “Apache Parquet”.
-
-![screen](images/Picture8.png)
-
-* Choose the schema to use for data format conversion as illustrated in the screenshot below.
-
-![screen](images/Picture9.png)
-
-* Select destination as "S3"
-
-![screen](images/Picture10.png)
-
-* Click on the dropdown next to "S3 bucket" and select the bucket that you created earlier through the S3 console. 
-
-* For "S3 prefix", copy and paste the following:
-
-```
-nyctaxitrips/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/ 
-```
-
-Note: We are using expressions in the prefix that follow the standard Hive partitioning format of "/partitionkey=value" notation.  This will make our S3 data work nicely with tools like Athena and EMR.
-
-
-* For "S3 error prefix" copy and paste the following:
-
-```
-nyctaxitripserror/!{firehose:error-output-type}/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/
-```
-
-* For "Source record S3 backup", click on "Disabled". Click on "Next".
-
-![screen](images/Picture11.png)
-
-* Specify the buffering hints for the Amazon S3 destination. Type in 128 MB and 180 seconds.
-
-![screen](images/Picture12.png)
-
-* Keep the default settings for "S3 compression and encryption".
-
-![screen](images/Picture13.png)
-
-* Choose "Enabled" for "Error logging".
-
-![screen](images/Picture14.png)
-
-* Specify the IAM role that you want Kinesis Data Firehose to assume to access resources on your behalf. Choose either Create new or Choose to display a new screen. 
-
-![screen](images/Picture15.png)
-
-* Choose Create a new IAM role, name the role, and then choose Allow.
-
-![screen](images/Picture16.png)
-
-* Choose Create Delivery Stream.
-
-### Create the IAM role to use with the Lambda function
-
-* Go to the IAM console, click on "Roles" and the click "Create role". Click on "AWS service" and then click on "Lambda". Change the name of the Kinesis Data Stream if you created a stream named different than “nyc-taxi-trips”.
-
-![screen](images/Picture17.png)
-
-* Click on "Next:Permissions"
-
-* In the search box next to "Filter policies", type "AWSLambdaBasicExecutionRole" and select the checkbox next to "AWSLambdaBasicExecutionRole". 
-
-![screen](images/Picture18.png)
-
-* Click on "Next:Tags" and add tags if you wish. Click "Next:Review"
-
-* Fill in the details as show below and click on "Create role".
-
-![screen](images/Picture19.png)
-
-* Click on the newly create role. Then click on "Add inline policy". Click on the "JSON" tab. Then copy and paste the json from below (remember to change the accountid in 3 places to your account id and the "initials-taxi-trips" stream name in 2 places). Then click on "Review policy".
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-            "Sid": "Effect",
-            "Effect": "Allow",
-            "Action": [
-                "kinesis:GetShardIterator",
-                "kinesis:GetRecords",
-                "firehose:PutRecordBatch",
-                "kinesis:DescribeStream"
-            ],
-            "Resource": [
-                "arn:aws:kinesis:us-east-1:<accountid>:stream/initials-taxi-trips",
-                "arn:aws:firehose:us-east-1:<accountid>:deliverystream/nyc-taxi-trips"
-            ]
-        },
-        {
-            "Sid": "KinesisPerm2",
-            "Effect": "Allow",
-            "Action": [
-                "kinesis:ListStreams",
-                "kinesis:SubscribeToShard",
-                "kinesis:DescribeStreamSummary",
-                "firehose:ListDeliveryStreams"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "KinesisPerm3",
-            "Effect": "Allow",
-            "Action": "kinesis:ListShards",
-            "Resource": [
-                "arn:aws:kinesis:us-east-1:<accountid>:stream/initials-taxi-trips"
-            ]
-        }
-    ]
-}
-
-```
-
-* Fill in the details as shown below and click on "Create policy".
-
-![screen](images/Picture20.png)
-
-The Lambda role is now created.
-
-### Create the Lambda function to process records from the Kinesis Data Stream
-
-The Lambda function does a few things:
-1.	It inspects the incoming message for unclean records with missing fields and filters them out.
-2.	It tries to send the clean records to Kinesis Data Firehose.
-3.	If it receives a throttling error, it determines if all the records received failed or some records failed.
-   
-   If all records failed, it raises an exception, so the Lambda service can retry with the same payload (the service keeps retrying with the same payload until it receives a success). It also logs the corresponding trip ids so you can check to see if they actually made it through to the S3 bucket.
-   
-   Or, if some (but not all) records failed, it retries based on the configured retries environment variable with exponential backoff. If any of the retries are successful, it returns a success. If none of the retries are successful, it raises an exception so the Lambda service can retry with the same payload. Note that in this case, there could be duplicate records sent. You can increase the number of retries or save the records somewhere to process later and move on as alternate strategies to prevent duplicates.
-  
-
-* Go to the Lambda console and click on "Create function". 
-
-* Select "Author from scratch" and fill in the details as show below and click on "Create function".
-
-![screen](images/Picture21.png)
-
-* Copy and Paste the following code in the "Function code" window overwriting the template code. Then click "Save".
-
-```
-import base64
-from datetime import datetime
-import time
-import json
-import boto3
-import random  
-import uuid
-import os
-
-client = boto3.client('firehose')
-
-
-def check_data(data):
-    payload = json.loads(data)
-
-    if payload['type'] == "trip" and payload['pickup_longitude'] != 0 and payload['pickup_latitude'] != 0 and payload['dropoff_latitude'] != 0 and payload['dropoff_longitude'] != 0:
-        return True
-    else:
-        return False
-        
-def gen_retry_output_list(resp, outputRecList):
-    recCount = 0
-    retryOutputList = []
-    for respRec in resp['RequestResponses']:
-        try:
-            respError = respRec['ErrorCode']
-            if respError == "ServiceUnavailableException":
-                retryOutputList.append(outputRecList[recCount])
-        except KeyError:
-            pass
-        recCount += 1
-    
-    return retryOutputList
-    
-def get_sleep_time(retryCount, exponentialBackoff, seed):
-
-    if (exponentialBackoff == True):
-        return (2*(seed**retryCount))/1000
-    else:
-        return (500/1000)
- 
-def lambda_handler(event, context):
-    print('Loading function' + ' ' +  datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ'))
-    print('Processing {} record(s).'.format(len(event['Records'])))
-    output = {}
-    outputRecList = []
-    retryOutputList = []
-    numRetries = int(os.environ['number_of_retries'])
-    retryCount = 1
-    eventRecords = len(event['Records'])
-    tripIds = []
-    deliveryStreamName = os.environ['delivery_stream_name']
-    seed = int(os.environ['exponential_backoff_seed'])
-    exponentialBackoff = False
-    
-    for record in event['Records']:
-        recordData = base64.b64decode(record['kinesis']['data'])  
-        recordDataJson = json.loads(recordData)
-        if check_data(recordData):
-            output['Data'] = recordData
-            outputRecList.append(output)
-            output = {}
-            tripIds.append(recordDataJson['trip_id'])
-            
-    if len(outputRecList) > 0:
-        
-        resp = client.put_record_batch(DeliveryStreamName=deliveryStreamName,
-                   Records=outputRecList
-            )
-    else:
-        print("No records to send ...")
-        return {
-            'statusCode': 200,
-            'body': json.dumps('Lambda successful!')
-        }
-        
-    
-    if resp['FailedPutCount'] != 0:
-        print('Failed to process {} record(s).'.format(resp['FailedPutCount']))
-        
-        if resp['FailedPutCount'] != eventRecords:
-            
-            while (retryCount <= numRetries):
-                
-                print("Retrying {} failed records up to {} times with exponential backoff...".format(resp['FailedPutCount'], numRetries - (retryCount - 1)))
-                retryOutputList = gen_retry_output_list(resp, outputRecList)
-                if len(retryOutputList) > 0:
-                    exponentialBackoff = True
-                print("Backing Off for {} seconds ...".format(get_sleep_time(retryCount, exponentialBackoff, seed)))
-                time.sleep(get_sleep_time(retryCount, exponentialBackoff, seed))
-                
-                retryResp = client.put_record_batch(DeliveryStreamName=deliveryStreamName,
-                    Records=retryOutputList
-                ) 
-    
-                if retryResp['FailedPutCount'] == 0:
-                    print("Retry successful after {} tries ...".format(retryCount))
-    
-                    return {
-                            'statusCode': 200,
-                            'body': json.dumps('Lambda successful!')
-                    }
-                        
-                retryCount += 1
-                outputRecList = retryOutputList
-                retryOutputList = []
-                resp = retryResp
-                print(resp['RequestResponses'])
-
-            print("All retries unsuccessful. Letting Lambda retry but there could be duplicates ...")
-            raise Exception("Records could not be sent. Lambda to retry ...")
-        else:
-            print("Since all records failed, letting Lambda retry..")
-            print(tripIds)
-            print(resp['RequestResponses'])
-            raise Exception("Records could not be sent. Lambda to retry ...")
-    else:
-         print("Records successfully sent ...")
-         return {
-            'statusCode': 200,
-            'body': json.dumps('Lambda successful!')
-        }
-
-```
-
-* Scroll down to the “Environment variables” section and fill it out as show below:
-
-![screen](images/Picture22.png)
-
-* Go to the Triggers pane in the top left of the page, scroll down and click on "Kinesis".
-
-![screen](images/Picture23.png)
-
-* Scroll down to the "Configure triggers" section and fill in the details as mostly shown below. Note that if you followed the Lab1 instructions, then your Kinesis stream will be named "initials-taxi-trips".  Also note that we will setup the trigger in "Standard" mode which is with "No consumer". Click "Add". Then scroll up and click "Save".
-
-![screen](images/Picture24.png)
-
-We have created this Kinesis trigger to run in "Standard" mode.  If you want to see how to enable the Lambda function to run as an "EnhancedFanOut" consumer, check out the [AWS CLI Resource Creation Instructions](Part1CLI.md).
-
-## Congratulations- You have finished Part1 of this Lab.  You can now proceed to [Part2](Part2.md)
+## Congratulations- You have finished this Lab.
 
 
