@@ -1,4 +1,4 @@
-# Immersion Day Lab 1 - Ingest, Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL.
+# Immersion Day Lab 1 - Clean, Aggregate, and Enrich Events with Kinesis Data Analytics SQL.
 
 In this section, we create an Amazon Kinesis Data Stream as a pre-requisite to using Kinesis Data Analytics steam and populate the stream running a producer client program on an EC2 instance that streams a data set of taxi trips made in NYC.
 
