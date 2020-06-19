@@ -2,7 +2,8 @@
 
 ## Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
 
-Lets first create an S3 bucket which you want Firehose to send data to. Name the bucket using your "initials-accoutnumber". Your AWS acct number can be found at the top right section of the browser window.
+Lets first create an S3 bucket which you want Firehose to send data to. 
+Navigate to S3 --> Create bucket --> Name the bucket using your "initials-accoutnumber" as seen in screenshot below. Your AWS acct number can be found at the top right section of the browser window. Click Create
 
 ![screen](imgfire/Picture1.png)
 
