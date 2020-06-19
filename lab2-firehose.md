@@ -62,7 +62,7 @@ CREATE EXTERNAL TABLE `nyctaxitrips`(
  OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
  LOCATION
-  's3://nyctaxitrips-initials/'
+  's3://nyctaxitrips-acctnumber
 
 ```
 
