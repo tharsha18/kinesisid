@@ -2,36 +2,36 @@
 
 ## Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
 
-Lets first create an S3 bucket which you want Firehose to send data to. 
+1. Lets first create an S3 bucket which you want Firehose to send data to. 
 Navigate to S3 --> Create bucket --> Name the bucket using your "initials-accoutnumber" as seen in screenshot below. Your AWS acct number can be found at the top right section of the browser window. Click Create
 
 ![screen](imgfire/Picture1.png)
 
-Once you have the bucket created, lets navigate to Kinesis-->Delivery Streams (left hand pane) --> Click on "Create Delivery Stream". That should open the configuration page as seen below. 
+2. Once you have the bucket created, lets navigate to Kinesis-->Delivery Streams (left hand pane) --> Click on "Create Delivery Stream". That should open the configuration page as seen below. 
 
 ![screen](imgfire/Picture2.png)
 
-Select the Kinesis source as per screenshot below.
+3. Select the Kinesis source as per screenshot below.
 
 ![screen](imgfire/Picture3.png)
 
-Click Next --> Next and Select S3 destination as seen in screenshot below.
+4. Click Next --> Next and Select S3 destination as seen in screenshot below.
 
 ![screen](imgfire/Picture4.png)
 
-Click Next (Leave rest default). Scroll down to Permission and click the button as in screenshot below 
+5. Click Next (Leave rest default). Scroll down to Permission and click the button as in screenshot below 
 
 ![screen](imgfire/Picture5.png)
 
-It should open a new window for IAM. Click allow and then click next
+6. It should open a new window for IAM. Click allow and then click next
 
 Review your changes and click "Create Delivery Stream". Now, your firehose will start writing to S3 bucket with the default prefix of year/month/date/hour/file format as seen in screenshot below
 
 ![screen](imgfire/Picture6.png)
 
-Now that your data is in S3, you can create an athena table on top of it and start querying!. Below is optional exercise.
+7. Now that your data is in S3, you can create an athena table on top of it and start querying!.
 
-
+## Optional exercise.
 ### Create the external table that Kinesis Data Firehose will use as a schema for data format conversion
 
 * Go to the Athena console, in the left pane, under "Database", click on the dropdown and select the default database. Remember to replace the S3 bucket name with the name of the bucket you created earlier through the S3 console.
