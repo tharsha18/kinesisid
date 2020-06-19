@@ -9,25 +9,25 @@ Navigate to S3 --> Create bucket --> Name the bucket using your "initials-accout
 
 Once you have the bucket created, lets navigate to Kinesis-->Delivery Streams (left hand pane) --> Click on "Create Delivery Stream". That should open the configuration page as seen below. 
 
-![screen](ima/Picture2.png)
+![screen](imgfire/Picture2.png)
 
 Select the Kinesis source as per screenshot below.
 
-![screen](ima/Picture3.png)
+![screen](imgfire/Picture3.png)
 
 Click Next --> Next and Select S3 destination as seen in screenshot below.
 
-![screen](ima/Picture4.png)
+![screen](imgfire/Picture4.png)
 
 Click Next (Leave rest default). Scroll down to Permission and click the button as in screenshot below 
 
-![screen](ima/Picture5.png)
+![screen](imgfire/Picture5.png)
 
 It should open a new window for IAM. Click allow and then click next
 
 Review your changes and click "Create Delivery Stream". Now, your firehose will start writing to S3 bucket with the default prefix of year/month/date/hour/file format as seen in screenshot below
 
-![screen](ima/Picture6.png)
+![screen](imgfire/Picture6.png)
 
 Now that your data is in S3, you can create an athena table on top of it and start querying!. Below is optional exercise.
 
