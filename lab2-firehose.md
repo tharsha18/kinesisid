@@ -1,4 +1,4 @@
-# Immersion Day Lab 1 - Deliver stream data usinf Kinesis Data Firehose
+# Immersion Day Lab 2 - Deliver stream data usinf Kinesis Data Firehose
 
 ## Part 1 - Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
 
@@ -13,6 +13,18 @@ Once you have the bucket created, lets navigate to Kinesis-->Delivery Streams (l
 Select the Kinesis source as per screenshot below.
 
 ![screen](ima/Picture3.png)
+
+Click Next --> Next and Select S3 destination as seen in screenshot below.
+
+![screen](ima/Picture4.png)
+
+Click Next (Leave rest default). Scroll down to Permission and click the button as in screenshot below 
+
+![screen](ima/Picture5.png)
+
+It should open a new window for IAM. Click allow and then click next
+
+
 
 ### Create the external table that Kinesis Data Firehose will use as a schema for data format conversion
 
