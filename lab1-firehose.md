@@ -2,21 +2,17 @@
 
 ## Part 1 - Configure Kinesis firehose to subscribe to Kinesis Stream as a consumer.
 
-![screen](images/Picture1.png)
+Lets first create an S3 bucket which you want Firehose to send data to. Name the bucket using your "initials-accoutnumber". Your AWS acct number can be found at the top right section of the browser window.
 
-* Type in a name for the database and click on "Create". This database will be used later to create an external table using the Athena console to provide a schema for data format conversion when creating a delivery stream using the Kinesis Data Firehose console.
+![screen](imgfire/Picture1.png)
 
-![screen](images/Picture2.png)
+Once you have the bucket created, lets navigate to Kinesis-->Delivery Streams (left hand pane) --> Click on "Create Delivery Stream". That should open the configuration page as seen below. 
 
-### Create the S3 bucket:
+![screen](ima/Picture2.png)
 
-* Go to the S3 console, click on "Create bucket". This bucket will be used to store the data delivered to S3 via the Kinesis Data Firehose delivery stream.
+Select the Kinesis source as per screenshot below.
 
-![screen](images/Picture3.png)
-
-* Type in the Bucket name (such as "nyctaxitrips-s3bucket-initials", where you replace "initials" with your initials), specify the Region and click on "Create".
-
-![screen](images/Picture4.png)
+![screen](ima/Picture3.png)
 
 ### Create the external table that Kinesis Data Firehose will use as a schema for data format conversion
 
